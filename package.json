@@ -1,0 +1,23 @@
+{
+  "name": "scraper-partseurope",
+  "version": "1.0.0",
+  "description": "Scraper per partseurope.eu - scarica prodotti per brand",
+  "main": "service.js",
+  "scripts": {
+    "start": "node service.js",
+    "cli": "node index.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "better-sqlite3": "^12.8.0",
+    "cheerio": "^1.0.0-rc.12",
+    "csv-parser": "^3.0.0",
+    "csv-writer": "^1.6.0",
+    "dotenv": "^17.3.1",
+    "exceljs": "^4.4.0",
+    "express": "^5.2.1",
+    "node-cron": "^4.2.1",
+    "nodemailer": "^8.0.4",
+    "unescape-js": "^1.1.4"
+  }
+}

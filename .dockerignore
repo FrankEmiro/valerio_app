@@ -1,0 +1,6 @@
+node_modules
+.env
+archive/
+output/
+*.csv
+*.xlsx
