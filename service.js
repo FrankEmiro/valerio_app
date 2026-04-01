@@ -56,9 +56,10 @@ async function runPartsEurope() {
 
     const xlsxPath = path.join(__dirname, 'output', `${brand}.xlsx`)
     const recipient = s.pe_recipient
-    if (recipient && s.gmail_user && s.gmail_app_password) {
+    const hasEmail = recipient && ((s.smtp_host && s.smtp_user && s.smtp_pass) || (s.gmail_user && s.gmail_app_password))
+    if (hasEmail) {
       log('Fase 3 – Invio email...')
-      await sendExcel({ xlsxPath, brand, recipientEmail: recipient, gmailUser: s.gmail_user, gmailAppPassword: s.gmail_app_password })
+      await sendExcel({ xlsxPath, brand, recipientEmail: recipient, gmailUser: s.gmail_user, gmailAppPassword: s.gmail_app_password, smtpHost: s.smtp_host, smtpPort: s.smtp_port, smtpUser: s.smtp_user, smtpPass: s.smtp_pass })
       emailSent = true
       log(`Email inviata a ${recipient}`)
     } else {
@@ -100,9 +101,10 @@ async function runMotone() {
     db.updateRun(runId, { products_scraped: productsCount, urls_found: urlsCount })
 
     const recipient = s.mo_recipient
-    if (recipient && s.gmail_user && s.gmail_app_password && result.xlsxPath) {
+    const hasEmail = recipient && result.xlsxPath && ((s.smtp_host && s.smtp_user && s.smtp_pass) || (s.gmail_user && s.gmail_app_password))
+    if (hasEmail) {
       log('Invio email...')
-      await sendExcel({ xlsxPath: result.xlsxPath, brand: 'MotoOne', recipientEmail: recipient, gmailUser: s.gmail_user, gmailAppPassword: s.gmail_app_password })
+      await sendExcel({ xlsxPath: result.xlsxPath, brand: 'MotoOne', recipientEmail: recipient, gmailUser: s.gmail_user, gmailAppPassword: s.gmail_app_password, smtpHost: s.smtp_host, smtpPort: s.smtp_port, smtpUser: s.smtp_user, smtpPass: s.smtp_pass })
       emailSent = true
       log(`Email inviata a ${recipient}`)
     } else {
@@ -127,11 +129,15 @@ async function runMotone() {
 
 async function notifyError(sourceName, err) {
   const s = db.getAllSettings()
-  if (!s.gmail_user || !s.gmail_app_password) return
+  const hasSmtp  = !!(s.smtp_host && s.smtp_user && s.smtp_pass)
+  const hasGmail = !!(s.gmail_user && s.gmail_app_password)
+  if (!hasSmtp && !hasGmail) return
   try {
-    const nodemailer = require('nodemailer')
-    const t = nodemailer.createTransport({ service: 'gmail', auth: { user: s.gmail_user, pass: s.gmail_app_password } })
-    await t.sendMail({ from: s.gmail_user, to: s.gmail_user, subject: `[Valerio Scraper] ERRORE ${sourceName}`, text: `${err.message}\n\n${err.stack}` })
+    const { buildTransport, senderAddress } = require('./lib/mailer')
+    const sm = { gmailUser: s.gmail_user, gmailAppPassword: s.gmail_app_password, smtpHost: s.smtp_host, smtpPort: s.smtp_port, smtpUser: s.smtp_user, smtpPass: s.smtp_pass }
+    const t = buildTransport(sm)
+    const from = senderAddress(sm)
+    await t.sendMail({ from, to: from, subject: `[Valerio Scraper] ERRORE ${sourceName}`, text: `${err.message}\n\n${err.stack}` })
   } catch (_) {}
 }
 
