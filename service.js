@@ -50,7 +50,7 @@ async function runPartsEurope() {
     log('Fase 2 – Scraping prodotti...')
     let enabledColumns = null
     try { enabledColumns = JSON.parse(s.pe_columns) } catch (e) {}
-    const result = await scrapeAll(brand, s.pe_cookie || '', enabledColumns, log)
+    const result = await scrapeAll(brand, s.pe_cookie || '', enabledColumns, log, s.pe_force_update === 'true')
     productsCount = result?.productsCount || 0
     db.updateRun(runId, { products_scraped: productsCount })
 

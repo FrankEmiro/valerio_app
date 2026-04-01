@@ -592,6 +592,7 @@ select option{background:var(--surf)}
           <div class="field"><label>Pagine max</label><input type="text" id="s_pe_max_pages" placeholder="50"></div>
           <div class="field"><label>Cookie sessione</label><input type="text" id="s_pe_cookie" placeholder="lascia vuoto per richieste anonime"></div>
           <div class="field"><label>Esegui all'avvio</label><select id="s_pe_run_on_start"><option value="false">No</option><option value="true">Sì</option></select></div>
+          <div class="field"><label>Aggiorna prodotti già scrapati</label><select id="s_pe_force_update"><option value="false">No (salta già fatti)</option><option value="true">Sì (ri-scrapa tutto)</option></select><div class="hint">Utile per aggiornare prezzi su prodotti già presenti</div></div>
         </div>
         <div class="sett-sect">
           <div class="sett-title"><span class="sett-icon" style="color:var(--pe)">◉</span> Schedule</div>
@@ -682,6 +683,7 @@ select option{background:var(--surf)}
           <div class="field"><label>Delay ms (per worker)</label><input type="text" id="s_mo_delay" placeholder="1500"></div>
           <div class="field"><label>Session Cookie</label><input type="text" id="s_mo_cookie" placeholder="opzionale"></div>
           <div class="field"><label>Esegui all'avvio</label><select id="s_mo_run_on_start"><option value="false">No</option><option value="true">Sì</option></select></div>
+          <div class="field"><label>Aggiorna prodotti già scrapati</label><select id="s_mo_force_update"><option value="false">No (salta già fatti)</option><option value="true">Sì (ri-scrapa tutto)</option></select><div class="hint">Utile per aggiornare prezzi su prodotti già presenti</div></div>
         </div>
         <div class="sett-sect">
           <div class="sett-title"><span class="sett-icon" style="color:var(--mo)">◉</span> Schedule</div>
@@ -1022,6 +1024,7 @@ async function loadSettings() {
   setVal('s_pe_max_pages', s.pe_max_pages)
   setVal('s_pe_cookie', s.pe_cookie)
   setVal('s_pe_run_on_start', s.pe_run_on_start)
+  setVal('s_pe_force_update', s.pe_force_update)
   setVal('s_pe_cron', s.pe_cron)
   setVal('s_pe_recipient', s.pe_recipient)
   setVal('s_mo_cat', s.mo_category_url)
@@ -1030,6 +1033,7 @@ async function loadSettings() {
   setVal('s_mo_delay', s.mo_delay_ms)
   setVal('s_mo_cookie', s.mo_session_cookie)
   setVal('s_mo_run_on_start', s.mo_run_on_start)
+  setVal('s_mo_force_update', s.mo_force_update)
   setVal('s_mo_cron', s.mo_cron)
   setVal('s_mo_child', s.mo_child_categories)
   setVal('s_mo_recipient', s.mo_recipient)
@@ -1051,6 +1055,7 @@ async function saveAllSettings() {
     pe_max_pages: getVal('s_pe_max_pages'),
     pe_cookie: getVal('s_pe_cookie'),
     pe_run_on_start: getVal('s_pe_run_on_start'),
+    pe_force_update: getVal('s_pe_force_update'),
     pe_cron: getVal('s_pe_cron'),
     pe_recipient: getVal('s_pe_recipient'),
     mo_category_url: getVal('s_mo_cat'),
@@ -1059,6 +1064,7 @@ async function saveAllSettings() {
     mo_delay_ms: getVal('s_mo_delay'),
     mo_session_cookie: getVal('s_mo_cookie'),
     mo_run_on_start: getVal('s_mo_run_on_start'),
+    mo_force_update: getVal('s_mo_force_update'),
     mo_cron: getVal('s_mo_cron'),
     mo_child_categories: getVal('s_mo_child'),
     mo_recipient: getVal('s_mo_recipient'),
