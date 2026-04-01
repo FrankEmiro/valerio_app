@@ -761,6 +761,7 @@ select option{background:var(--surf)}
       <div class="modal-actions">
         <button class="btn btn-ghost btn-sm" id="modal-dl-btn" onclick="modalDownload()">⬇ Excel</button>
         <button class="btn btn-ghost btn-sm" id="modal-log-btn" onclick="toggleModalLog()">Log ▾</button>
+        <button class="btn btn-ghost btn-sm" id="modal-del-btn" onclick="deleteRun()" style="color:#cc4444">✕ Elimina</button>
         <button class="modal-close" onclick="closeModal()">✕</button>
       </div>
     </div>
@@ -1244,9 +1245,11 @@ function toast(msg, type = 'info') {
 
 // ── Run Modal ────────────────────────────────────────────────────
 let modalSource = null
+let modalRunId = null
 
 async function openRunModal(runId, source) {
   modalSource = source
+  modalRunId = runId
   const overlay = document.getElementById('runModal')
   overlay.classList.remove('off')
   document.body.style.overflow = 'hidden'
@@ -1369,10 +1372,20 @@ async function modalSendEmail() {
   finally { btn.disabled = false; btn.textContent = '✉ Invia email' }
 }
 
+async function deleteRun() {
+  if (!modalRunId) return
+  if (!confirm('Eliminare questo run dalla cronologia?')) return
+  await fetch(`/api/runs/${modalRunId}`, { method: 'DELETE' })
+  closeModal()
+  loadRuns()
+  fetchStatus()
+}
+
 function closeModal() {
   document.getElementById('runModal').classList.add('off')
   document.body.style.overflow = ''
   modalSource = null
+  modalRunId = null
 }
 
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal() })
