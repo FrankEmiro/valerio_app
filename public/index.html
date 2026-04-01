@@ -604,9 +604,16 @@ select option{background:var(--surf)}
           <div class="field"><label>Email cliente PE</label><input type="email" id="s_pe_recipient" placeholder="cliente@example.com"></div>
         </div>
         <div class="sett-sect">
-          <div class="sett-title"><span class="sett-icon" style="color:var(--pe)">▣</span> Gmail condivisa</div>
+          <div class="sett-title"><span class="sett-icon" style="color:var(--pe)">▣</span> Gmail (IP residenziale)</div>
           <div class="field"><label>Account Gmail</label><input type="email" id="s_gmail_user" placeholder="tua@gmail.com"></div>
-          <div class="field"><label>App Password</label><input type="password" id="s_gmail_pass" placeholder="Lascia vuoto per non cambiare"><div class="hint">myaccount.google.com/apppasswords – digita solo se vuoi cambiare la password</div></div>
+          <div class="field"><label>App Password</label><input type="password" id="s_gmail_pass" placeholder="Lascia vuoto per non cambiare"><div class="hint">myaccount.google.com/apppasswords – non funziona da VPS/server</div></div>
+        </div>
+        <div class="sett-sect">
+          <div class="sett-title"><span class="sett-icon" style="color:var(--pe)">◧</span> SMTP alternativo (Brevo / server)</div>
+          <div class="field"><label>SMTP Host</label><input type="text" id="s_smtp_host" placeholder="smtp-relay.brevo.com"><div class="hint">Se impostato, usa questo al posto di Gmail</div></div>
+          <div class="field"><label>SMTP Port</label><input type="text" id="s_smtp_port" placeholder="587"></div>
+          <div class="field"><label>SMTP User</label><input type="email" id="s_smtp_user" placeholder="tuaemail@esempio.com"></div>
+          <div class="field"><label>SMTP Password / API Key</label><input type="password" id="s_smtp_pass" placeholder="Lascia vuoto per non cambiare"><div class="hint">Brevo: SMTP & API → SMTP → genera chiave</div></div>
           <div class="mt"><button class="btn btn-ghost btn-sm" onclick="testEmail('partseurope')">✉ Invia test</button></div>
         </div>
       </div>
@@ -688,9 +695,16 @@ select option{background:var(--surf)}
           <div class="field"><label>Email cliente MO</label><input type="email" id="s_mo_recipient" placeholder="cliente@example.com"></div>
         </div>
         <div class="sett-sect">
-          <div class="sett-title"><span class="sett-icon" style="color:var(--mo)">▣</span> Gmail condivisa</div>
+          <div class="sett-title"><span class="sett-icon" style="color:var(--mo)">▣</span> Gmail (IP residenziale)</div>
           <div class="field"><label>Account Gmail</label><input type="email" id="s_gmail_user_mo" placeholder="tua@gmail.com"></div>
-          <div class="field"><label>App Password</label><input type="password" id="s_gmail_pass_mo" placeholder="Lascia vuoto per non cambiare"></div>
+          <div class="field"><label>App Password</label><input type="password" id="s_gmail_pass_mo" placeholder="Lascia vuoto per non cambiare"><div class="hint">Non funziona da VPS/server</div></div>
+        </div>
+        <div class="sett-sect">
+          <div class="sett-title"><span class="sett-icon" style="color:var(--mo)">◧</span> SMTP alternativo (Brevo / server)</div>
+          <div class="field"><label>SMTP Host</label><input type="text" id="s_smtp_host_mo" placeholder="smtp-relay.brevo.com"><div class="hint">Se impostato, usa questo al posto di Gmail</div></div>
+          <div class="field"><label>SMTP Port</label><input type="text" id="s_smtp_port_mo" placeholder="587"></div>
+          <div class="field"><label>SMTP User</label><input type="email" id="s_smtp_user_mo" placeholder="tuaemail@esempio.com"></div>
+          <div class="field"><label>SMTP Password / API Key</label><input type="password" id="s_smtp_pass_mo" placeholder="Lascia vuoto per non cambiare"><div class="hint">Brevo: SMTP & API → SMTP → genera chiave</div></div>
           <div class="mt"><button class="btn btn-ghost btn-sm" onclick="testEmail('motone')">✉ Invia test</button></div>
         </div>
       </div>
@@ -1020,10 +1034,14 @@ async function loadSettings() {
   setVal('s_mo_child', s.mo_child_categories)
   setVal('s_mo_recipient', s.mo_recipient)
   setVal('s_gmail_user', s.gmail_user)
-  // Non pre-riempire la password: lasciare vuoto, l'utente digita solo se vuole cambiarla
-  // setVal('s_gmail_pass', ...) intentionally omitted
   setVal('s_gmail_user_mo', s.gmail_user)
-  // setVal('s_gmail_pass_mo', ...) intentionally omitted
+  // Password fields left empty intentionally – user types only to change them
+  setVal('s_smtp_host', s.smtp_host)
+  setVal('s_smtp_port', s.smtp_port)
+  setVal('s_smtp_user', s.smtp_user)
+  setVal('s_smtp_host_mo', s.smtp_host)
+  setVal('s_smtp_port_mo', s.smtp_port)
+  setVal('s_smtp_user_mo', s.smtp_user)
   updateCronHint('pe'); updateCronHint('mo')
 }
 
@@ -1049,8 +1067,16 @@ async function saveAllSettings() {
       const v = (getVal('s_gmail_pass') || getVal('s_gmail_pass_mo') || '').replace(/\s+/g, '')
       return v === '••••••••••••••••' ? '' : v
     })(),
+    smtp_host: getVal('s_smtp_host') || getVal('s_smtp_host_mo'),
+    smtp_port: getVal('s_smtp_port') || getVal('s_smtp_port_mo') || '587',
+    smtp_user: getVal('s_smtp_user') || getVal('s_smtp_user_mo'),
+    smtp_pass: (() => {
+      const v = (getVal('s_smtp_pass') || getVal('s_smtp_pass_mo') || '').replace(/\s+/g, '')
+      return v === '••••••••••••••••' ? '' : v
+    })(),
   }
   if (!data.gmail_app_password) delete data.gmail_app_password
+  if (!data.smtp_pass) delete data.smtp_pass
   try {
     await fetch('/api/settings', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data) })
     toast('Impostazioni salvate ✓', 'ok')
