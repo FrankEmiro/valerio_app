@@ -18,6 +18,7 @@
     "express": "^5.2.1",
     "node-cron": "^4.2.1",
     "nodemailer": "^8.0.4",
+    "puppeteer-core": "^24.42.0",
     "unescape-js": "^1.1.4"
   }
 }

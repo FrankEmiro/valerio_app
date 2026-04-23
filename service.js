@@ -22,6 +22,7 @@ const { scrapeAll } = require('./lib/scraper')
 const { filterColumns } = require('./lib/columns')
 const { sendExcel } = require('./lib/mailer')
 const motone = require('./lib/scrapers/motone')
+const holyfreedom = require('./lib/scrapers/holyfreedom')
 
 const PORT = parseInt(process.env.PORT) || 3131
 
@@ -125,6 +126,51 @@ async function runMotone() {
   }
 }
 
+// ─── Job HolyFreedom ──────────────────────────────────────────────
+
+async function runHolyfreedom() {
+  if (web.isRunning('holyfreedom')) return
+  web.setRunning('holyfreedom', true)
+
+  const s = db.getAllSettings()
+  const runId = db.createRun('holyfreedom', 'holyfreedom.com')
+
+  const log = (msg) => { console.log(`[HF] ${msg}`); db.appendRunLog(runId, msg) }
+
+  let productsCount = 0, urlsCount = 0, emailSent = false
+
+  try {
+    log('Job avviato — holyfreedom.com/it')
+    const result = await holyfreedom.run(s, log)
+    productsCount = result.productsCount
+    urlsCount = result.urlsCount
+    db.updateRun(runId, { products_scraped: productsCount, urls_found: urlsCount })
+
+    const recipient = s.hf_recipient
+    const hasEmail = recipient && result.xlsxPath && ((s.smtp_host && s.smtp_user && s.smtp_pass) || (s.gmail_user && s.gmail_app_password))
+    if (hasEmail) {
+      log('Invio email...')
+      await sendExcel({ xlsxPath: result.xlsxPath, brand: 'HolyFreedom', recipientEmail: recipient, gmailUser: s.gmail_user, gmailAppPassword: s.gmail_app_password, smtpHost: s.smtp_host, smtpPort: s.smtp_port, smtpUser: s.smtp_user, smtpPass: s.smtp_pass })
+      emailSent = true
+      log(`Email inviata a ${recipient}`)
+    } else {
+      log('Email saltata (credenziali mancanti)')
+    }
+
+    const fileSizeKb = result.xlsxPath && fs.existsSync(result.xlsxPath)
+      ? Math.round(fs.statSync(result.xlsxPath).size / 1024 * 10) / 10 : null
+
+    db.completeRun(runId, { status: 'completed', productsScraped: productsCount, urlsFound: urlsCount, emailSent, emailRecipient: emailSent ? recipient : null, fileSizeKb })
+    log('Completato ✓')
+  } catch (err) {
+    log(`ERRORE: ${err.message}`)
+    db.completeRun(runId, { status: 'error', productsScraped: productsCount, urlsFound: urlsCount, emailSent: false, errorMessage: err.message })
+    notifyError('HolyFreedom', err)
+  } finally {
+    web.setRunning('holyfreedom', false)
+  }
+}
+
 // ─── Notifica errore ──────────────────────────────────────────────
 
 async function notifyError(sourceName, err) {
@@ -148,6 +194,7 @@ async function main() {
 
   web.setRunner('partseurope', runPartsEurope)
   web.setRunner('motone', runMotone)
+  web.setRunner('holyfreedom', runHolyfreedom)
 
   const s = db.getAllSettings()
   const runOnStart = process.env.RUN_ON_START === 'true'
@@ -168,10 +215,18 @@ async function main() {
     console.log(`[MO] Scheduler: ${moCron}`)
   }
 
+  // Scheduler HolyFreedom
+  const hfCron = s.hf_cron || '0 10 * * 1'
+  if (cron.validate(hfCron)) {
+    const hfTask = cron.schedule(hfCron, () => runHolyfreedom(), { timezone: 'Europe/Rome' })
+    web.setCron('holyfreedom', hfTask)
+    console.log(`[HF] Scheduler: ${hfCron}`)
+  }
+
   // Ricrea scheduler quando cambiati dalla UI
   web.app.on('cron-changed', (source, newExpr) => {
     if (!cron.validate(newExpr)) return
-    const fn = source === 'partseurope' ? runPartsEurope : runMotone
+    const fn = source === 'partseurope' ? runPartsEurope : source === 'motone' ? runMotone : runHolyfreedom
     const task = cron.schedule(newExpr, () => fn(), { timezone: 'Europe/Rome' })
     web.setCron(source, task)
     console.log(`[${source.toUpperCase()}] Cron aggiornato: ${newExpr}`)
@@ -185,6 +240,10 @@ async function main() {
   if (s.mo_run_on_start === 'true') {
     console.log('[MO] RUN_ON_START → avvio...')
     runMotone().catch(console.error)
+  }
+  if (s.hf_run_on_start === 'true') {
+    console.log('[HF] RUN_ON_START → avvio...')
+    runHolyfreedom().catch(console.error)
   }
 
   console.log(`\nValerio Scraper — dashboard: http://localhost:${PORT}\n`)

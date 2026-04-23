@@ -19,6 +19,9 @@
   --mo:      #2a7a4f;
   --mo-d:    rgba(42,122,79,.09);
   --mo-s:    rgba(42,122,79,.18);
+  --hf:      #7b2d8b;
+  --hf-d:    rgba(123,45,139,.09);
+  --hf-s:    rgba(123,45,139,.18);
   --blue:    #2d6bbf;
   --blue-d:  rgba(45,107,191,.09);
   --red:     #b83535;
@@ -55,6 +58,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(.85)}}
 .dot.pe-run{background:var(--pe);animation:pulse 1.4s ease-in-out infinite}
 .dot.mo-run{background:var(--mo);animation:pulse 1.4s ease-in-out infinite}
+.dot.hf-run{background:var(--hf);animation:pulse 1.4s ease-in-out infinite}
 .dot.both-run{background:var(--blue);animation:pulse 1s ease-in-out infinite}
 
 .src-tabs{display:flex;height:100%;flex:1}
@@ -68,12 +72,14 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .src-tab:hover{color:var(--text);background:var(--surf2)}
 .src-tab.active-pe{color:var(--pe);border-bottom-color:var(--pe);background:var(--pe-d)}
 .src-tab.active-mo{color:var(--mo);border-bottom-color:var(--mo);background:var(--mo-d)}
+.src-tab.active-hf{color:var(--hf);border-bottom-color:var(--hf);background:var(--hf-d)}
 .src-tab.active-all{color:var(--blue);border-bottom-color:var(--blue);background:var(--blue-d)}
 .tab-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.tab-dot.pe{background:var(--pe)}.tab-dot.mo{background:var(--mo)}.tab-dot.all{background:var(--blue)}
+.tab-dot.pe{background:var(--pe)}.tab-dot.mo{background:var(--mo)}.tab-dot.hf{background:var(--hf)}.tab-dot.all{background:var(--blue)}
 .tab-status{font-size:10px;padding:2px 7px;border-radius:20px;margin-left:3px;font-weight:600;letter-spacing:.03em}
 .tab-status.run-pe{background:var(--pe-d);color:var(--pe)}
 .tab-status.run-mo{background:var(--mo-d);color:var(--mo)}
+.tab-status.run-hf{background:var(--hf-d);color:var(--hf)}
 
 .hdr-right{display:flex;align-items:center;gap:8px;padding:0 20px;margin-left:auto}
 
@@ -88,6 +94,8 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .btn-pe:hover{background:#a84b20;box-shadow:0 2px 8px rgba(194,90,40,.35)}
 .btn-mo{background:var(--mo);color:#fff;box-shadow:0 1px 3px rgba(42,122,79,.3)}
 .btn-mo:hover{background:#22693f;box-shadow:0 2px 8px rgba(42,122,79,.35)}
+.btn-hf{background:var(--hf);color:#fff;box-shadow:0 1px 3px rgba(123,45,139,.3)}
+.btn-hf:hover{background:#63236f;box-shadow:0 2px 8px rgba(123,45,139,.35)}
 .btn-ghost{
   background:transparent;color:var(--muted2);
   border:1px solid var(--bord);box-shadow:none;
@@ -114,6 +122,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .nav-item:hover{color:var(--text);background:var(--surf2)}
 .nav-item.act-pe{color:var(--pe);background:var(--pe-d);border-left-color:var(--pe)}
 .nav-item.act-mo{color:var(--mo);background:var(--mo-d);border-left-color:var(--mo)}
+.nav-item.act-hf{color:var(--hf);background:var(--hf-d);border-left-color:var(--hf)}
 .nav-item.act-all{color:var(--blue);background:var(--blue-d);border-left-color:var(--blue)}
 .nav-item.act-g{color:var(--text);background:var(--surf2);border-left-color:var(--bord2)}
 .nav-icon{width:17px;text-align:center;font-size:14px;opacity:.7}
@@ -138,6 +147,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 }
 .sb-pe{background:var(--pe-d);color:var(--pe);border:1px solid var(--pe-s)}
 .sb-mo{background:var(--mo-d);color:var(--mo);border:1px solid var(--mo-s)}
+.sb-hf{background:var(--hf-d);color:var(--hf);border:1px solid var(--hf-s)}
 
 /* ── Cards ── */
 .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:26px}
@@ -149,6 +159,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .card:hover{box-shadow:var(--shadow-md)}
 .card.pe-accent{border-color:var(--pe-s)}
 .card.mo-accent{border-color:var(--mo-s)}
+.card.hf-accent{border-color:var(--hf-s)}
 .card-lbl{
   font-size:11px;color:var(--muted2);letter-spacing:.06em;
   text-transform:uppercase;margin-bottom:10px;font-weight:600;
@@ -157,7 +168,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
   font-family:'DM Serif Display',serif;font-size:28px;
   color:var(--text);line-height:1;
 }
-.card-val.pe{color:var(--pe)}.card-val.mo{color:var(--mo)}
+.card-val.pe{color:var(--pe)}.card-val.mo{color:var(--mo)}.card-val.hf{color:var(--hf)}
 .card-sub{font-size:11.5px;color:var(--muted2);margin-top:6px}
 
 /* ── 2-column overview ── */
@@ -248,6 +259,7 @@ tr:hover td{background:var(--surf2)}
   animation:ind 1.8s ease-in-out infinite;
 }
 .prog-bar.mo{background:linear-gradient(90deg,var(--mo),#3daf74)}
+.prog-bar.hf{background:linear-gradient(90deg,var(--hf),#a855c7)}
 @keyframes ind{0%{transform:translateX(-150%)}100%{transform:translateX(350%)}}
 
 /* ── Settings ── */
@@ -281,6 +293,10 @@ input:focus,select:focus{
   border-color:var(--mo);
   box-shadow:0 0 0 3px var(--mo-d);
 }
+.hf-form input:focus,.hf-form select:focus,.hf-form textarea:focus{
+  border-color:var(--hf);
+  box-shadow:0 0 0 3px var(--hf-d);
+}
 select option{background:var(--surf)}
 .hint{font-size:11.5px;color:var(--muted);margin-top:5px}
 
@@ -293,6 +309,7 @@ select option{background:var(--surf)}
 }
 .preset:hover{border-color:var(--pe);color:var(--pe);background:var(--pe-d)}
 .mo-form .preset:hover{border-color:var(--mo);color:var(--mo);background:var(--mo-d)}
+.hf-form .preset:hover{border-color:var(--hf);color:var(--hf);background:var(--hf-d)}
 
 .save-bar{
   position:sticky;bottom:0;background:var(--bg);
@@ -311,7 +328,7 @@ select option{background:var(--surf)}
 .col-grp-hdr:hover{background:var(--bord)}
 .col-grp-ttl{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:600}
 .col-grp-ico{font-size:14px}
-.col-grp-ico.pe{color:var(--pe)}.col-grp-ico.mo{color:var(--mo)}
+.col-grp-ico.pe{color:var(--pe)}.col-grp-ico.mo{color:var(--mo)}.col-grp-ico.hf{color:var(--hf)}
 .col-grp-cnt{font-size:11px;color:var(--muted2);font-weight:400}
 .col-grp-acts{display:flex;gap:5px;align-items:center}
 .tog-btn{
@@ -321,6 +338,7 @@ select option{background:var(--surf)}
 }
 .tog-btn.pe:hover{border-color:var(--pe);color:var(--pe);background:var(--pe-d)}
 .tog-btn.mo:hover{border-color:var(--mo);color:var(--mo);background:var(--mo-d)}
+.tog-btn.hf:hover{border-color:var(--hf);color:var(--hf);background:var(--hf-d)}
 .col-grp-body{
   padding:12px 15px;background:var(--surf);
   display:grid;grid-template-columns:repeat(3,1fr);gap:6px;
@@ -328,11 +346,11 @@ select option{background:var(--surf)}
 .col-grp-body.hide{display:none}
 .col-ck{display:flex;align-items:center;gap:7px;cursor:pointer;padding:3px 0}
 .col-ck input{width:14px;height:14px;cursor:pointer;flex-shrink:0;border-radius:4px}
-.col-ck input.pe{accent-color:var(--pe)}.col-ck input.mo{accent-color:var(--mo)}
+.col-ck input.pe{accent-color:var(--pe)}.col-ck input.mo{accent-color:var(--mo)}.col-ck input.hf{accent-color:var(--hf)}
 .col-ck span{font-size:12px;color:var(--muted2);font-weight:400}
 .col-ck:hover span{color:var(--text)}
 .col-sum{font-size:12.5px;color:var(--muted2);text-align:right;padding:8px 0;font-weight:500}
-.col-sum strong.pe{color:var(--pe)}.col-sum strong.mo{color:var(--mo)}
+.col-sum strong.pe{color:var(--pe)}.col-sum strong.mo{color:var(--mo)}.col-sum strong.hf{color:var(--hf)}
 
 /* ── Modal ── */
 .modal-overlay{
@@ -468,12 +486,17 @@ select option{background:var(--surf)}
       <span class="tab-dot mo"></span> MotoOne
       <span class="tab-status run-mo" id="mo-run-badge" style="display:none">in corso</span>
     </div>
+    <div class="src-tab" id="tab-holyfreedom" onclick="setSource('holyfreedom')">
+      <span class="tab-dot hf"></span> HolyFreedom
+      <span class="tab-status run-hf" id="hf-run-badge" style="display:none">in corso</span>
+    </div>
   </div>
 
   <div class="hdr-right">
     <span id="hdr-status" style="font-size:12px;color:var(--muted2);font-weight:500">Inattivo</span>
     <button class="btn btn-pe btn-sm" id="btnRunPE" onclick="triggerRun('partseurope')" title="Avvia PartsEurope">▶ PE</button>
     <button class="btn btn-mo btn-sm" id="btnRunMO" onclick="triggerRun('motone')" title="Avvia MotoOne">▶ MO</button>
+    <button class="btn btn-hf btn-sm" id="btnRunHF" onclick="triggerRun('holyfreedom')" title="Avvia HolyFreedom">▶ HF</button>
   </div>
 </header>
 
@@ -486,11 +509,11 @@ select option{background:var(--surf)}
     <div class="page on" id="page-all-overview">
       <div class="ptitle">Overview <small>tutte le sorgenti attive</small></div>
 
-      <div class="cards">
+      <div class="cards" style="grid-template-columns:repeat(5,1fr)">
         <div class="card">
           <div class="card-lbl">Run totali</div>
           <div class="card-val pe" id="ov-total-runs">–</div>
-          <div class="card-sub">entrambe le sorgenti</div>
+          <div class="card-sub">tutte le sorgenti</div>
         </div>
         <div class="card">
           <div class="card-lbl">Prodotti scrapati</div>
@@ -507,9 +530,14 @@ select option{background:var(--surf)}
           <div class="card-val" id="ov-mo-last" style="font-size:15px;padding-top:4px">–</div>
           <div class="card-sub" id="ov-mo-status">–</div>
         </div>
+        <div class="card">
+          <div class="card-lbl">Ultimo run HF</div>
+          <div class="card-val" id="ov-hf-last" style="font-size:15px;padding-top:4px">–</div>
+          <div class="card-sub" id="ov-hf-status">–</div>
+        </div>
       </div>
 
-      <div class="overview-grid">
+      <div class="overview-grid" style="grid-template-columns:1fr 1fr 1fr">
         <div class="source-panel">
           <div class="sp-head">
             <div class="sp-title"><span style="color:var(--pe)">◆</span> PartsEurope <span id="ov-pe-badge"></span></div>
@@ -532,6 +560,18 @@ select option{background:var(--surf)}
             <div class="sp-stat"><span class="sp-stat-lbl">Schedule</span><span class="sp-stat-val" id="sp-mo-cron">–</span></div>
             <div class="sp-stat"><span class="sp-stat-lbl">Run completati</span><span class="sp-stat-val" id="sp-mo-runs">–</span></div>
             <div class="sp-stat"><span class="sp-stat-lbl">Prodotti totali</span><span class="sp-stat-val" id="sp-mo-prods">–</span></div>
+          </div>
+        </div>
+        <div class="source-panel">
+          <div class="sp-head">
+            <div class="sp-title"><span style="color:var(--hf)">◆</span> HolyFreedom <span id="ov-hf-badge"></span></div>
+            <button class="btn btn-hf btn-sm" onclick="triggerRun('holyfreedom')" id="ov-btn-hf">▶ Avvia</button>
+          </div>
+          <div class="sp-body">
+            <div class="sp-stat"><span class="sp-stat-lbl">Sorgente</span><span class="sp-stat-val" style="font-size:12px">holyfreedom.com/it</span></div>
+            <div class="sp-stat"><span class="sp-stat-lbl">Schedule</span><span class="sp-stat-val" id="sp-hf-cron">–</span></div>
+            <div class="sp-stat"><span class="sp-stat-lbl">Run completati</span><span class="sp-stat-val" id="sp-hf-runs">–</span></div>
+            <div class="sp-stat"><span class="sp-stat-lbl">Prodotti totali</span><span class="sp-stat-val" id="sp-hf-prods">–</span></div>
           </div>
         </div>
       </div>
@@ -727,6 +767,95 @@ select option{background:var(--surf)}
       </div>
     </div>
 
+    <!-- ══ HF DASHBOARD ══ -->
+    <div class="page" id="page-hf-dashboard">
+      <div class="ptitle">HolyFreedom <span class="source-badge sb-hf">holyfreedom.com/it</span><small id="hf-next-lbl">–</small></div>
+
+      <div class="cards">
+        <div class="card hf-accent"><div class="card-lbl">Run totali</div><div class="card-val hf" id="hf-stat-runs">–</div><div class="card-sub">esecuzioni</div></div>
+        <div class="card"><div class="card-lbl">Prodotti scrapati</div><div class="card-val" id="hf-stat-prods">–</div><div class="card-sub">cumulativo</div></div>
+        <div class="card"><div class="card-lbl">Tasso successo</div><div class="card-val pe" id="hf-stat-rate">–</div><div class="card-sub" id="hf-stat-dur">–</div></div>
+        <div class="card"><div class="card-lbl">Ultimo run</div><div class="card-val" id="hf-stat-last" style="font-size:14px;padding-top:5px">–</div><div class="card-sub" id="hf-stat-lstatus">–</div></div>
+      </div>
+
+      <div class="prog-wrap" id="hf-prog">
+        <div class="prog-lbl"><span>Scraping in corso...</span><span id="hf-prog-time" style="color:var(--hf)">–</span></div>
+        <div class="prog-track"><div class="prog-bar hf" id="hf-bar"></div></div>
+      </div>
+      <div class="log-wrap" id="hf-log-wrap">
+        <div class="log-hdr">
+          <span style="color:var(--hf);font-size:8px">●</span> LOG HOLYFREEDOM
+          <button class="btn btn-ghost btn-sm" onclick="clearLog('hf')" style="margin-left:auto">Pulisci</button>
+        </div>
+        <div class="log-body" id="hf-log"></div>
+      </div>
+
+      <div class="table-wrap mt">
+        <div class="tbl-hdr">
+          <span class="tbl-title">Ultimi run HF</span>
+          <div class="flex gap2">
+            <button class="btn btn-ghost btn-sm" onclick="downloadSource('holyfreedom')">⬇ Excel</button>
+            <button class="btn btn-ghost btn-sm" onclick="loadRuns()">↻</button>
+          </div>
+        </div>
+        <table><thead><tr><th>#</th><th>Data</th><th>URL</th><th>Prodotti</th><th>Durata</th><th>Email</th><th>Stato</th></tr></thead>
+        <tbody id="hf-runs-body"><tr><td colspan="7" class="empty">–</td></tr></tbody></table>
+      </div>
+    </div>
+
+    <!-- ══ HF SETTINGS ══ -->
+    <div class="page" id="page-hf-settings">
+      <div class="ptitle">Impostazioni HolyFreedom</div>
+      <div class="sett-grid hf-form">
+        <div class="sett-sect">
+          <div class="sett-title"><span class="sett-icon" style="color:var(--hf)">⬡</span> Scraping</div>
+          <div class="field"><label>Categorie (virgola separata)</label><textarea id="s_hf_categories" rows="3" style="resize:vertical"></textarea><div class="hint">es: uomo,tutoni,caschi-omologati — slugs dall'URL holyfreedom.com/it/<strong>{slug}</strong></div></div>
+          <div class="field"><label>Cookie sessione</label><input type="text" id="s_hf_cookie" placeholder="visid_incap_...=...; incap_ses_...=..."><div class="hint">Apri holyfreedom.com in Chrome → DevTools → Application → Cookies → copia tutti i cookie Imperva (<strong>visid_incap_*</strong>, <strong>incap_ses_*</strong>)</div></div>
+          <div class="field"><label>Delay ms (tra prodotti)</label><input type="text" id="s_hf_delay" placeholder="1500"></div>
+          <div class="field"><label>Esegui all'avvio</label><select id="s_hf_run_on_start"><option value="false">No</option><option value="true">Sì</option></select></div>
+          <div class="field"><label>Aggiorna prodotti già scrapati</label><select id="s_hf_force_update"><option value="false">No (salta già fatti)</option><option value="true">Sì (ri-scrapa tutto)</option></select><div class="hint">Utile per aggiornare prezzi su prodotti già presenti</div></div>
+        </div>
+        <div class="sett-sect">
+          <div class="sett-title"><span class="sett-icon" style="color:var(--hf)">◉</span> Schedule</div>
+          <div class="field"><label>Cron Expression</label><input type="text" id="s_hf_cron" placeholder="0 10 * * 1">
+          <div class="presets"><span class="preset" onclick="setCron('hf','0 10 * * 1')">Lun 10:00</span><span class="preset" onclick="setCron('hf','0 8 * * *')">Ogni giorno 8:00</span><span class="preset" onclick="setCron('hf','0 0 * * 0')">Dom mezzanotte</span><span class="preset" onclick="setCron('hf','0 0 1 * *')">1° mese</span></div>
+          <div class="hint" id="hf-cron-hint">–</div></div>
+        </div>
+        <div class="sett-sect">
+          <div class="sett-title"><span class="sett-icon" style="color:var(--hf)">◈</span> Destinatario email</div>
+          <div class="field"><label>Email cliente HF</label><input type="email" id="s_hf_recipient" placeholder="cliente@example.com"></div>
+        </div>
+        <div class="sett-sect">
+          <div class="sett-title"><span class="sett-icon" style="color:var(--hf)">▣</span> Gmail (IP residenziale)</div>
+          <div class="field"><label>Account Gmail</label><input type="email" id="s_gmail_user_hf" placeholder="tua@gmail.com"></div>
+          <div class="field"><label>App Password</label><input type="password" id="s_gmail_pass_hf" placeholder="Lascia vuoto per non cambiare"><div class="hint">Non funziona da VPS/server</div></div>
+        </div>
+        <div class="sett-sect">
+          <div class="sett-title"><span class="sett-icon" style="color:var(--hf)">◧</span> SMTP alternativo (Brevo / server)</div>
+          <div class="field"><label>SMTP Host</label><input type="text" id="s_smtp_host_hf" placeholder="smtp-relay.brevo.com"><div class="hint">Se impostato, usa questo al posto di Gmail</div></div>
+          <div class="field"><label>SMTP Port</label><input type="text" id="s_smtp_port_hf" placeholder="587"></div>
+          <div class="field"><label>SMTP User</label><input type="email" id="s_smtp_user_hf" placeholder="tuaemail@esempio.com"></div>
+          <div class="field"><label>SMTP Password / API Key</label><input type="password" id="s_smtp_pass_hf" placeholder="Lascia vuoto per non cambiare"><div class="hint">Brevo: SMTP & API → SMTP → genera chiave</div></div>
+          <div class="mt"><button class="btn btn-ghost btn-sm" onclick="testEmail('holyfreedom')">✉ Invia test</button></div>
+        </div>
+      </div>
+      <div class="save-bar"><button class="btn btn-ghost" onclick="loadSettings()">↺ Ripristina</button><button class="btn btn-hf" onclick="saveAllSettings()">✓ Salva</button></div>
+    </div>
+
+    <!-- ══ HF COLUMNS ══ -->
+    <div class="page" id="page-hf-columns">
+      <div class="ptitle">Colonne Export — HolyFreedom</div>
+      <div class="col-sum"><strong class="hf" id="hf-col-en">–</strong> / <span id="hf-col-tot">–</span> colonne abilitate</div>
+      <div class="col-groups" id="hf-col-groups">Caricamento...</div>
+      <div class="save-bar">
+        <button class="btn btn-ghost btn-sm" onclick="selAllCols('hf',true)">Tutte</button>
+        <button class="btn btn-ghost btn-sm" onclick="selAllCols('hf',false)">Nessuna</button>
+        <div style="flex:1"></div>
+        <button class="btn btn-ghost" onclick="loadColumns('holyfreedom')">↺</button>
+        <button class="btn btn-hf" onclick="saveCols('holyfreedom','hf_columns')">✓ Salva</button>
+      </div>
+    </div>
+
     <!-- ══ ALL HISTORY ══ -->
     <div class="page" id="page-all-history">
       <div class="ptitle">Cronologia completa</div>
@@ -738,6 +867,7 @@ select option{background:var(--surf)}
               <option value="">Tutte le sorgenti</option>
               <option value="partseurope">PartsEurope</option>
               <option value="motone">MotoOne</option>
+              <option value="holyfreedom">HolyFreedom</option>
             </select>
             <button class="btn btn-ghost btn-sm" onclick="loadRuns()">↻</button>
           </div>
@@ -818,12 +948,17 @@ const SIDEBAR_ITEMS = {
     { id: 'settings',  label: 'Impostazioni', icon: '⚙' },
     { id: 'columns',   label: 'Colonne Export', icon: '▦' },
   ],
+  holyfreedom: [
+    { id: 'dashboard', label: 'Dashboard', icon: '◈' },
+    { id: 'settings',  label: 'Impostazioni', icon: '⚙' },
+    { id: 'columns',   label: 'Colonne Export', icon: '▦' },
+  ],
 }
 
 function setSource(src) {
   activeSource = src
   document.querySelectorAll('.src-tab').forEach(t => t.className = 'src-tab')
-  document.getElementById(`tab-${src}`).classList.add(`active-${src === 'partseurope' ? 'pe' : src === 'motone' ? 'mo' : 'all'}`)
+  document.getElementById(`tab-${src}`).classList.add(`active-${src === 'partseurope' ? 'pe' : src === 'motone' ? 'mo' : src === 'holyfreedom' ? 'hf' : 'all'}`)
   buildSidebar()
   const firstPage = SIDEBAR_ITEMS[src][0].id
   showPage(src, firstPage)
@@ -832,7 +967,7 @@ function setSource(src) {
 function buildSidebar() {
   const sidebar = document.getElementById('sidebar')
   const items = SIDEBAR_ITEMS[activeSource] || []
-  const actClass = activeSource === 'partseurope' ? 'act-pe' : activeSource === 'motone' ? 'act-mo' : 'act-all'
+  const actClass = activeSource === 'partseurope' ? 'act-pe' : activeSource === 'motone' ? 'act-mo' : activeSource === 'holyfreedom' ? 'act-hf' : 'act-all'
   sidebar.innerHTML = items.map(item => `
     <div class="nav-item ${activePage === item.id ? actClass : ''}"
          onclick="showPage('${activeSource}','${item.id}')">
@@ -844,7 +979,7 @@ function buildSidebar() {
 function showPage(src, page) {
   activePage = page
   document.querySelectorAll('.page').forEach(p => p.classList.remove('on'))
-  const pageId = `page-${src === 'all' ? 'all' : src === 'partseurope' ? 'pe' : 'mo'}-${page}`
+  const pageId = `page-${src === 'all' ? 'all' : src === 'partseurope' ? 'pe' : src === 'motone' ? 'mo' : 'hf'}-${page}`
   const el = document.getElementById(pageId)
   if (el) el.classList.add('on')
   buildSidebar()
@@ -867,37 +1002,43 @@ async function fetchStatus() {
     updateOverview(d)
     updateSourceDash('pe', d.sources.partseurope)
     updateSourceDash('mo', d.sources.motone)
+    if (d.sources.holyfreedom) updateSourceDash('hf', d.sources.holyfreedom)
     updateAllRunBadges(d)
     if (d.sources.partseurope.isRunning && d.sources.partseurope.activeRun)
       fetchLog('pe', d.sources.partseurope.activeRun.id)
     if (d.sources.motone.isRunning && d.sources.motone.activeRun)
       fetchLog('mo', d.sources.motone.activeRun.id)
+    if (d.sources.holyfreedom?.isRunning && d.sources.holyfreedom.activeRun)
+      fetchLog('hf', d.sources.holyfreedom.activeRun.id)
   } catch(_) {}
 }
 
 function updateHeader(d) {
-  const pe = d.sources.partseurope, mo = d.sources.motone
-  const bothR = pe.isRunning && mo.isRunning
+  const pe = d.sources.partseurope, mo = d.sources.motone, hf = d.sources.holyfreedom || {}
+  const anyR = pe.isRunning || mo.isRunning || hf.isRunning
+  const multiR = [pe.isRunning, mo.isRunning, hf.isRunning].filter(Boolean).length > 1
   const dot = document.getElementById('mainDot')
-  dot.className = 'dot' + (bothR ? ' both-run' : pe.isRunning ? ' pe-run' : mo.isRunning ? ' mo-run' : '')
-  const statusLbl = bothR ? 'PE + MO in corso' : pe.isRunning ? 'PE in corso' : mo.isRunning ? 'MO in corso' : 'Inattivo'
+  dot.className = 'dot' + (multiR ? ' both-run' : pe.isRunning ? ' pe-run' : mo.isRunning ? ' mo-run' : hf.isRunning ? ' hf-run' : '')
+  const statusLbl = multiR ? 'Scraping in corso...' : pe.isRunning ? 'PE in corso' : mo.isRunning ? 'MO in corso' : hf.isRunning ? 'HF in corso' : 'Inattivo'
   document.getElementById('hdr-status').textContent = statusLbl
-  document.getElementById('hdr-status').style.color = (pe.isRunning || mo.isRunning) ? 'var(--pe)' : 'var(--muted2)'
+  document.getElementById('hdr-status').style.color = anyR ? 'var(--pe)' : 'var(--muted2)'
   document.getElementById('btnRunPE').disabled = pe.isRunning
   document.getElementById('btnRunMO').disabled = mo.isRunning
+  document.getElementById('btnRunHF').disabled = !!hf.isRunning
 }
 
 function updateAllRunBadges(d) {
   document.getElementById('pe-run-badge').style.display = d.sources.partseurope.isRunning ? '' : 'none'
   document.getElementById('mo-run-badge').style.display = d.sources.motone.isRunning ? '' : 'none'
+  document.getElementById('hf-run-badge').style.display = d.sources.holyfreedom?.isRunning ? '' : 'none'
 }
 
 function updateOverview(d) {
   const gs = d.globalStats || {}
   set('ov-total-runs', gs.total_runs ?? '0')
   set('ov-total-products', fmt(gs.total_products))
-  const pe = d.sources.partseurope, mo = d.sources.motone
-  const ps = pe.stats || {}, ms = mo.stats || {}
+  const pe = d.sources.partseurope, mo = d.sources.motone, hf = d.sources.holyfreedom || {}
+  const ps = pe.stats || {}, ms = mo.stats || {}, hs = hf.stats || {}
   set('sp-pe-brand', pe.brand || '–')
   set('sp-pe-cron', pe.nextRunLabel || '–')
   set('sp-pe-runs', ps.successful_runs ?? '0')
@@ -905,6 +1046,9 @@ function updateOverview(d) {
   set('sp-mo-cron', mo.nextRunLabel || '–')
   set('sp-mo-runs', ms.successful_runs ?? '0')
   set('sp-mo-prods', fmt(ms.total_products))
+  set('sp-hf-cron', hf.nextRunLabel || '–')
+  set('sp-hf-runs', hs.successful_runs ?? '0')
+  set('sp-hf-prods', fmt(hs.total_products))
   if (pe.lastRun) {
     set('ov-pe-last', fmtDate(pe.lastRun.started_at))
     setStatus('ov-pe-status', pe.lastRun.status)
@@ -913,8 +1057,13 @@ function updateOverview(d) {
     set('ov-mo-last', fmtDate(mo.lastRun.started_at))
     setStatus('ov-mo-status', mo.lastRun.status)
   }
+  if (hf.lastRun) {
+    set('ov-hf-last', fmtDate(hf.lastRun.started_at))
+    setStatus('ov-hf-status', hf.lastRun.status)
+  }
   document.getElementById('ov-btn-pe').disabled = pe.isRunning
   document.getElementById('ov-btn-mo').disabled = mo.isRunning
+  document.getElementById('ov-btn-hf').disabled = !!hf.isRunning
 }
 
 function updateSourceDash(prefix, src) {
@@ -963,7 +1112,14 @@ async function loadRuns() {
   renderOvTable(allRuns.slice(0, 6))
   renderPETable(runs.filter(r => r.source === 'partseurope').slice(0, 10))
   renderMOTable(runs.filter(r => r.source === 'motone').slice(0, 10))
+  renderHFTable(runs.filter(r => r.source === 'holyfreedom').slice(0, 10))
   renderHistTable(runs)
+}
+
+function srcBadge(source) {
+  if (source === 'partseurope') return `<span class="badge b-o">PE</span>`
+  if (source === 'motone') return `<span class="badge b-g">MO</span>`
+  return `<span class="badge" style="background:var(--hf-d);color:var(--hf)">HF</span>`
 }
 
 function renderOvTable(runs) {
@@ -971,7 +1127,7 @@ function renderOvTable(runs) {
   if (!runs.length) { b.innerHTML = `<tr><td colspan="7" class="empty">Nessun run</td></tr>`; return }
   b.innerHTML = runs.map(r => `<tr onclick="openRunModal(${r.id},'${r.source}')" style="cursor:pointer">
     <td style="color:var(--muted2)">${r.id}</td>
-    <td><span class="badge ${r.source==='partseurope'?'b-o':'b-g'}">${r.source==='partseurope'?'PE':'MO'}</span></td>
+    <td>${srcBadge(r.source)}</td>
     <td>${fmtDate(r.started_at)}</td><td>${r.products_scraped??'–'}</td>
     <td>${fmtDur(r.duration_seconds)}</td>
     <td>${r.email_sent?'<span style="color:var(--mo)">✓</span>':'<span style="color:var(--muted2)">–</span>'}</td>
@@ -1004,12 +1160,24 @@ function renderMOTable(runs) {
   </tr>`).join('')
 }
 
+function renderHFTable(runs) {
+  const b = document.getElementById('hf-runs-body')
+  if (!runs.length) { b.innerHTML = `<tr><td colspan="7" class="empty">Nessun run HF</td></tr>`; return }
+  b.innerHTML = runs.map(r => `<tr onclick="openRunModal(${r.id},'holyfreedom')" style="cursor:pointer">
+    <td style="color:var(--muted2)">${r.id}</td><td>${fmtDate(r.started_at)}</td>
+    <td>${r.urls_found??'–'}</td><td>${r.products_scraped??'–'}</td>
+    <td>${fmtDur(r.duration_seconds)}</td>
+    <td>${r.email_sent?'<span style="color:var(--mo)">✓</span>':'–'}</td>
+    <td><span class="badge ${badgeClass(r.status)}">${r.status}</span></td>
+  </tr>`).join('')
+}
+
 function renderHistTable(runs) {
   const b = document.getElementById('hist-body')
   if (!runs.length) { b.innerHTML = `<tr><td colspan="9" class="empty">Nessun run</td></tr>`; return }
   b.innerHTML = runs.map(r => `<tr onclick="openRunModal(${r.id},'${r.source}')" style="cursor:pointer">
     <td style="color:var(--muted2)">${r.id}</td>
-    <td><span class="badge ${r.source==='partseurope'?'b-o':'b-g'}">${r.source==='partseurope'?'PartsEurope':'MotoOne'}</span></td>
+    <td>${r.source==='partseurope'?'<span class="badge b-o">PartsEurope</span>':r.source==='motone'?'<span class="badge b-g">MotoOne</span>':'<span class="badge" style="background:var(--hf-d);color:var(--hf)">HolyFreedom</span>'}</td>
     <td>${fmtDate(r.started_at)}</td><td>${r.completed_at?fmtDate(r.completed_at):'–'}</td>
     <td>${r.products_scraped??'–'}</td><td>${fmtDur(r.duration_seconds)}</td>
     <td>${r.file_size_kb?r.file_size_kb+' KB':'–'}</td>
@@ -1038,8 +1206,16 @@ async function loadSettings() {
   setVal('s_mo_cron', s.mo_cron)
   setVal('s_mo_child', s.mo_child_categories)
   setVal('s_mo_recipient', s.mo_recipient)
+  setVal('s_hf_categories', s.hf_categories)
+  setVal('s_hf_cookie', s.hf_cookie)
+  setVal('s_hf_delay', s.hf_delay_ms)
+  setVal('s_hf_run_on_start', s.hf_run_on_start)
+  setVal('s_hf_force_update', s.hf_force_update)
+  setVal('s_hf_cron', s.hf_cron)
+  setVal('s_hf_recipient', s.hf_recipient)
   setVal('s_gmail_user', s.gmail_user)
   setVal('s_gmail_user_mo', s.gmail_user)
+  setVal('s_gmail_user_hf', s.gmail_user)
   // Password fields left empty intentionally – user types only to change them
   setVal('s_smtp_host', s.smtp_host)
   setVal('s_smtp_port', s.smtp_port)
@@ -1047,7 +1223,10 @@ async function loadSettings() {
   setVal('s_smtp_host_mo', s.smtp_host)
   setVal('s_smtp_port_mo', s.smtp_port)
   setVal('s_smtp_user_mo', s.smtp_user)
-  updateCronHint('pe'); updateCronHint('mo')
+  setVal('s_smtp_host_hf', s.smtp_host)
+  setVal('s_smtp_port_hf', s.smtp_port)
+  setVal('s_smtp_user_hf', s.smtp_user)
+  updateCronHint('pe'); updateCronHint('mo'); updateCronHint('hf')
 }
 
 async function saveAllSettings() {
@@ -1069,16 +1248,23 @@ async function saveAllSettings() {
     mo_cron: getVal('s_mo_cron'),
     mo_child_categories: getVal('s_mo_child'),
     mo_recipient: getVal('s_mo_recipient'),
-    gmail_user: getVal('s_gmail_user') || getVal('s_gmail_user_mo'),
+    hf_categories: getVal('s_hf_categories'),
+    hf_cookie: getVal('s_hf_cookie'),
+    hf_delay_ms: getVal('s_hf_delay'),
+    hf_run_on_start: getVal('s_hf_run_on_start'),
+    hf_force_update: getVal('s_hf_force_update'),
+    hf_cron: getVal('s_hf_cron'),
+    hf_recipient: getVal('s_hf_recipient'),
+    gmail_user: getVal('s_gmail_user') || getVal('s_gmail_user_mo') || getVal('s_gmail_user_hf'),
     gmail_app_password: (() => {
-      const v = (getVal('s_gmail_pass') || getVal('s_gmail_pass_mo') || '').replace(/\s+/g, '')
+      const v = (getVal('s_gmail_pass') || getVal('s_gmail_pass_mo') || getVal('s_gmail_pass_hf') || '').replace(/\s+/g, '')
       return v === '••••••••••••••••' ? '' : v
     })(),
-    smtp_host: getVal('s_smtp_host') || getVal('s_smtp_host_mo'),
-    smtp_port: getVal('s_smtp_port') || getVal('s_smtp_port_mo') || '587',
-    smtp_user: getVal('s_smtp_user') || getVal('s_smtp_user_mo'),
+    smtp_host: getVal('s_smtp_host') || getVal('s_smtp_host_mo') || getVal('s_smtp_host_hf'),
+    smtp_port: getVal('s_smtp_port') || getVal('s_smtp_port_mo') || getVal('s_smtp_port_hf') || '587',
+    smtp_user: getVal('s_smtp_user') || getVal('s_smtp_user_mo') || getVal('s_smtp_user_hf'),
     smtp_pass: (() => {
-      const v = (getVal('s_smtp_pass') || getVal('s_smtp_pass_mo') || '').replace(/\s+/g, '')
+      const v = (getVal('s_smtp_pass') || getVal('s_smtp_pass_mo') || getVal('s_smtp_pass_hf') || '').replace(/\s+/g, '')
       return v === '••••••••••••••••' ? '' : v
     })(),
   }
@@ -1098,7 +1284,9 @@ function setCron(prefix, expr) {
 
 const CRON_HINTS = {
   '0 8 * * 1':'ogni lunedì alle 8:00','0 9 * * 1':'ogni lunedì alle 9:00',
+  '0 10 * * 1':'ogni lunedì alle 10:00',
   '0 6 * * *':'ogni giorno alle 6:00','0 7 * * *':'ogni giorno alle 7:00',
+  '0 8 * * *':'ogni giorno alle 8:00',
   '0 0 * * 0':'ogni domenica a mezzanotte','0 0 1 * *':'il primo del mese',
   '0 */12 * * *':'ogni 12 ore','0 * * * *':'ogni ora'
 }
@@ -1109,10 +1297,11 @@ function updateCronHint(prefix) {
 document.addEventListener('input', e => {
   if (e.target.id === 's_pe_cron') updateCronHint('pe')
   if (e.target.id === 's_mo_cron') updateCronHint('mo')
+  if (e.target.id === 's_hf_cron') updateCronHint('hf')
 })
 
 async function testEmail(source) {
-  const recipient = source === 'partseurope' ? getVal('s_pe_recipient') : getVal('s_mo_recipient')
+  const recipient = source === 'partseurope' ? getVal('s_pe_recipient') : source === 'motone' ? getVal('s_mo_recipient') : getVal('s_hf_recipient')
   try {
     const r = await fetch('/api/test-email', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ recipient }) })
     const d = await r.json()
@@ -1124,8 +1313,8 @@ async function testEmail(source) {
 async function loadColumns(source) {
   const d = await fetch(`/api/columns/${source}`).then(r => r.json())
   colsData[source] = d
-  const prefix = source === 'partseurope' ? 'pe' : 'mo'
-  const color = source === 'partseurope' ? 'pe' : 'mo'
+  const prefix = source === 'partseurope' ? 'pe' : source === 'motone' ? 'mo' : 'hf'
+  const color = source === 'partseurope' ? 'pe' : source === 'motone' ? 'mo' : 'hf'
   set(`${prefix}-col-en`, d.totalEnabled)
   set(`${prefix}-col-tot`, d.totalAll)
 
@@ -1167,12 +1356,12 @@ function grpAll(src, gi, v) {
   updateColCount(src)
 }
 function selAllCols(prefix, v) {
-  const src = prefix === 'pe' ? 'partseurope' : 'motone'
+  const src = prefix === 'pe' ? 'partseurope' : prefix === 'mo' ? 'motone' : 'holyfreedom'
   document.querySelectorAll(`#${prefix}-col-groups input`).forEach(cb => cb.checked = v)
   updateColCount(src)
 }
 function updateColCount(source) {
-  const prefix = source === 'partseurope' ? 'pe' : 'mo'
+  const prefix = source === 'partseurope' ? 'pe' : source === 'motone' ? 'mo' : 'hf'
   const en = document.querySelectorAll(`#${prefix}-col-groups input:checked`).length
   set(`${prefix}-col-en`, en)
 }
@@ -1254,8 +1443,8 @@ async function openRunModal(runId, source) {
   overlay.classList.remove('off')
   document.body.style.overflow = 'hidden'
 
-  const srcLabel = source === 'partseurope' ? 'PartsEurope' : 'MotoOne'
-  const srcColor = source === 'partseurope' ? 'var(--pe)' : 'var(--mo)'
+  const srcLabel = source === 'partseurope' ? 'PartsEurope' : source === 'motone' ? 'MotoOne' : 'HolyFreedom'
+  const srcColor = source === 'partseurope' ? 'var(--pe)' : source === 'motone' ? 'var(--mo)' : 'var(--hf)'
 
   document.getElementById('modal-title').innerHTML =
     `<span style="color:${srcColor}">◆</span> ${srcLabel} — Run #${runId}`
@@ -1270,7 +1459,7 @@ async function openRunModal(runId, source) {
 
   // Imposta email destinatario dai settings
   const s = await fetch('/api/settings').then(r => r.json())
-  const rec = source === 'partseurope' ? s.pe_recipient : s.mo_recipient
+  const rec = source === 'partseurope' ? s.pe_recipient : source === 'motone' ? s.mo_recipient : s.hf_recipient
   document.getElementById('modal-email-input').value = rec || ''
 
   // Carica run + log
