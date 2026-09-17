@@ -721,7 +721,9 @@ select option{background:var(--surf)}
           <div class="field"><label>Max prodotti</label><input type="text" id="s_mo_max" placeholder="1000"></div>
           <div class="field"><label>Concorrenza (workers)</label><input type="text" id="s_mo_conc" placeholder="5"></div>
           <div class="field"><label>Delay ms (per worker)</label><input type="text" id="s_mo_delay" placeholder="1500"></div>
-          <div class="field"><label>Session Cookie</label><input type="text" id="s_mo_cookie" placeholder="opzionale"></div>
+          <div class="field"><label>Account trade – Email</label><input type="email" id="s_mo_username" placeholder="opzionale"><div class="hint">Se compilato insieme alla password, lo scraper fa login automatico prima di ogni run per vedere anche i prodotti visibili solo agli account loggati</div></div>
+          <div class="field"><label>Account trade – Password</label><input type="password" id="s_mo_password" placeholder="Lascia vuoto per non cambiare"></div>
+          <div class="field"><label>Session Cookie (fallback manuale)</label><input type="text" id="s_mo_cookie" placeholder="opzionale"><div class="hint">Usato solo se login automatico non è configurato o fallisce</div></div>
           <div class="field"><label>Esegui all'avvio</label><select id="s_mo_run_on_start"><option value="false">No</option><option value="true">Sì</option></select></div>
           <div class="field"><label>Aggiorna prodotti già scrapati</label><select id="s_mo_force_update"><option value="false">No (salta già fatti)</option><option value="true">Sì (ri-scrapa tutto)</option></select><div class="hint">Utile per aggiornare prezzi su prodotti già presenti</div></div>
         </div>
@@ -1201,6 +1203,8 @@ async function loadSettings() {
   setVal('s_mo_conc', s.mo_concurrency)
   setVal('s_mo_delay', s.mo_delay_ms)
   setVal('s_mo_cookie', s.mo_session_cookie)
+  setVal('s_mo_username', s.mo_username)
+  // s_mo_password left empty intentionally – user types only to change it
   setVal('s_mo_run_on_start', s.mo_run_on_start)
   setVal('s_mo_force_update', s.mo_force_update)
   setVal('s_mo_cron', s.mo_cron)
@@ -1243,6 +1247,8 @@ async function saveAllSettings() {
     mo_concurrency: getVal('s_mo_conc'),
     mo_delay_ms: getVal('s_mo_delay'),
     mo_session_cookie: getVal('s_mo_cookie'),
+    mo_username: getVal('s_mo_username'),
+    mo_password: getVal('s_mo_password'),
     mo_run_on_start: getVal('s_mo_run_on_start'),
     mo_force_update: getVal('s_mo_force_update'),
     mo_cron: getVal('s_mo_cron'),
@@ -1270,6 +1276,7 @@ async function saveAllSettings() {
   }
   if (!data.gmail_app_password) delete data.gmail_app_password
   if (!data.smtp_pass) delete data.smtp_pass
+  if (!data.mo_password) delete data.mo_password
   try {
     await fetch('/api/settings', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data) })
     toast('Impostazioni salvate ✓', 'ok')
